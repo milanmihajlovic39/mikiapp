@@ -18,6 +18,7 @@ body{
 	background-color: #edf1f7;
 	margin: 0;
     padding: 0;
+    text-align: center;
 }
 
 .data{
@@ -27,5 +28,4 @@ body{
 
 .img-circle {
     margin-bottom: 10px;
-    text-align: center;
 }
