@@ -3,6 +3,7 @@ function onSignIn(googleUser){
 	$(".g-signin2").css("display","none");
 	$(".data").css("display", "block");
 	$("#pic").attr('src', profile.getImageUrl());
+	$("#name").text(profile.getName());
 	$("#email").text(profile.getEmail());
 }
 

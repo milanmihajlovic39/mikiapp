@@ -13,14 +13,19 @@
 <body>
 	<div class="container">
 		<div class="g-signin2" data-onsuccess="onSignIn"></div>
-		<div class="data">
-			<p> Success! </p>
-			<p>Profile Details: </p>
-			<img id="pic" class="img-circle" width="100px" height="100px">
-			<p>Email Address: </p>
-			<p id="email" class="alert alert-danger"></p>
-			<button onclick="signOut()" class="btn btn-danger" > Sign Out </button>
+		<div class="data" class="panel panel-default">
+			<div class="panel-heading">
+		    	<h3 class="panel-title">Profile details</h3>
+		  	</div>
+		  	<div class="panel-body">
+				<img id="pic" class="img-circle" width="100px" height="100px">
+				<p>Name: </p>
+				<p id="name" class=""></p>
+				<p>Email Address: </p>
+				<p id="email" class=""></p>
+				<button onclick="signOut()" class="btn btn-primary" > Sign Out </button>
+		  </div>	
 		</div>
-	</div>	
+	</div>
 </body>
 </html>
