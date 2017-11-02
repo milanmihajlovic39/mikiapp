@@ -3,9 +3,9 @@
 		vendorUrl = window.URL || window.webkitURL;
 
 	navigator.getMedia = navigator.mediaDevices.getUserMedia || 
-						 navigator.mediaDevices.webkitGetUserMedia ||
-						 navigator.mediaDevices.mozGetUserMedia ||
-						 navigator.mediaDevices.msGetUserMedia;
+						 navigator.webkitGetUserMedia ||
+						 navigator.mozGetUserMedia ||
+						 navigator.msGetUserMedia;
 
 	//Capture Video
 	navigator.getMedia({
