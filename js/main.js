@@ -42,7 +42,7 @@ function closeVideo(){
 
 	//Capture Video
 	navigator.getMedia({
-		video:true,
+		video:false,
 		audio:false
 	},function(stream){
 		console.log(stream);
