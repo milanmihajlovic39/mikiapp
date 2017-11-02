@@ -1,4 +1,5 @@
 function openVideo(){
+	$("#videoBox").addClass("booth");
 	var video = document.getElementById('video2'),
 	vendorUrl = window.URL || window.webkitURL;
 
@@ -22,6 +23,12 @@ function openVideo(){
 		//console.log(error);
 		//hmm
 	});
+}
+function closeVideo(){
+	var video = document.getElementById('video2');
+	video.src = "";
+	$("#videoBox").removeClass("booth");
+		
 }
 
 //Google login
