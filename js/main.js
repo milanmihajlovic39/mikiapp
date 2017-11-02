@@ -2,10 +2,10 @@
 	var video = document.getElementById('video'),
 		vendorUrl = window.URL || window.webkitURL;
 
-	navigator.getMedia = navigator.getUserMedia || 
-						 navigator.webkitGetUserMedia ||
-						 navigator.mozGetUserMedia ||
-						 navigator.msGetUserMedia;
+	navigator.getMedia = navigator.mediaDevices.getUserMedia || 
+						 navigator.mediaDevices.webkitGetUserMedia ||
+						 navigator.mediaDevices.mozGetUserMedia ||
+						 navigator.mediaDevices.msGetUserMedia;
 
 	//Capture Video
 	navigator.getMedia({
@@ -16,6 +16,7 @@
 		video.play();
 	},function(error){
 		//An error occured
+		//console.log(error);
 	});
 
 })();
