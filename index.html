@@ -17,7 +17,8 @@
 <body>
 	<div class="container">
 		<div class="g-signin2" data-onsuccess="onSignIn"></div>
-		<div class="data panel panel-default">
+		<div class="data">
+			<div class="panel panel-default">
 			<div class="panel-heading">
 		    	<h3 class=" panel-title">Profile details</h3>
 		  	</div>
@@ -29,6 +30,18 @@
 				</ul>
 				<button onclick="signOut()" class="btn btn-primary" > Sign Out </button>
 		  </div>	
+		</div>
+
+		<label>Your ID: </label></br>
+		<textarea id="yourId"></textarea></br>
+		<label>Other ID: </label></br>
+		<textarea id="otherId"></textarea></br>
+		<button id="connect" class="btn btn-primary" > Connect </button>
+
+		<label>Enter message: </label></br>
+		<textarea id="yourMessage"></textarea></br>
+		<button id="send" class="btn btn-primary" > Send </button>
+		<pre id="messages"></pre>
 		</div>
 	</div>
 </body>

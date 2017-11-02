@@ -4,9 +4,12 @@
   "description": "test app",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
- ,"start": "node app.js"
- },
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
   "author": "Milan\u001b[H",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "simple-peer": "^8.1.1"
+  }
 }
