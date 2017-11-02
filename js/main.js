@@ -2,7 +2,7 @@
 	var video = document.getElementById('video'),
 		vendorUrl = window.URL || window.webkitURL;
 
-	navigator.getMedia = navigator.mediaDevices.getUserMedia || 
+	navigator.getMedia = navigator.getUserMedia || 
 						 navigator.webkitGetUserMedia ||
 						 navigator.mozGetUserMedia ||
 						 navigator.msGetUserMedia;
