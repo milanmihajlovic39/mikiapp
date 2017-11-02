@@ -42,12 +42,13 @@ function closeVideo(){
 
 	//Capture Video
 	navigator.getMedia({
-		video:false,
+		video:true,
 		audio:false
 	},function(stream){
 		console.log(stream);
 		video.src = "";
-		video.stop();
+		video.pause();
+		localMediaStream.stop()
 	},function(error){
 		//An error occured
 		//console.log(error);
