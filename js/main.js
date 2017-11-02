@@ -25,36 +25,10 @@ function openVideo(){
 	});
 }
 function closeVideo(){
-	/*
 	var video = document.getElementById('video2');
 	video.src = "";
-	$("#videoBox").removeClass("booth"); */
-	$("#videoBox").removeClass("booth")
-	var video = document.getElementById('video2'),
-	vendorUrl = window.URL || window.webkitURL;
-
-	
-
-	navigator.getMedia = navigator.getUserMedia || 
-						 navigator.webkitGetUserMedia ||
-						 navigator.mozGetUserMedia ||
-						 navigator.msGetUserMedia;
-
-	//Capture Video
-	navigator.getMedia({
-		video:true,
-		audio:false
-	},function(stream){
-		console.log(stream);
-		video.src = "";
-		video.pause();
-		localMediaStream.stop()
-	},function(error){
-		//An error occured
-		//console.log(error);
-		//hmm
-	});
-		
+	$("#videoBox").removeClass("booth"); 
+	stream.getTracks().forEach(function(track) { track.stop(); })	
 }
 
 //Google login
