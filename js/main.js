@@ -59,6 +59,6 @@ navigator.webkitGetUserMedia({video:true, audio:true}, function(stream){
 
 }, function(err){
 	console.error(err);
-}
+})
 
 
