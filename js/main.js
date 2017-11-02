@@ -23,7 +23,7 @@ function signOut(){
 //Simple Video call
 navigator.webkitGetUserMedia({video:true, audio:true}, function(stream){
 	//Simple Chat
-	var Peer = require ('simple-peer')
+	var Peer = require('simple-peer')
 	var peer = new Peer({
 		initiator: location.hash === '#init',
 		trickle: false,
