@@ -28,7 +28,8 @@ function closeVideo(){
 	var video = document.getElementById('video2');
 	video.src = "";
 	$("#videoBox").removeClass("booth"); 
-	stream.getTracks().forEach(function(track) { track.stop(); })	
+	mediaStream.getVideoTracks()[0].stop();
+
 }
 
 //Google login
