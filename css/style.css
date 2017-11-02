@@ -29,3 +29,10 @@ body{
 .img-circle{
     margin-bottom: 10px;
 }
+
+.booth {
+    width: 400px;
+    background:#ccc;
+    border: 10px solid #ddd;
+    margin: 0 auto;
+}
