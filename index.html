@@ -1,22 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title> Sign In </title>
+	<title> OAuth and ChatIO </title>
 	<meta name="description" content="Work in progress website">
     <meta name="author" content="Milan Mihajlovic">
     <meta property="og:image" content="https://i.pinimg.com/236x/39/94/84/3994840c75adce9803b23c84559b372e--koala-bear-drawing-koala-art.jpg" />
     <link rel="icon" type="image/png" href="https://i.pinimg.com/236x/39/94/84/3994840c75adce9803b23c84559b372e--koala-bear-drawing-koala-art.jpg">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<meta name="google-signin-client_id" content="727104842032-pr7taip5ovvniv9voe71etd112ndpen2.apps.googleusercontent.com">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="js/main.js"></script>
 
+	<style> 
+	#messageArea{
+		display:none;
+	}
+	.g-signin2{
+	position: absolute;
+    width: 100px;
+    height: 50px;
+    top: 50%;
+    left: 50%;
+    margin-left: -50px; /* margin is -0.5 * dimension */
+    margin-top: -25px; 
+}
+
+.container{
+	width: 1100px;
+	height: 100%;
+	background-color: #edf1f7;
+}
+
+body{
+	background-color: #edf1f7;
+	margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.data{
+	display: none;
+    margin-top: 30px;
+}
+
+.img-circle{
+    margin-bottom: 10px;
+}
+	</style>
 </head>
 <body>
+	<!-- Google Login -->
 	<div class="container">
-		<div class="g-signin2" data-onsuccess="onSignIn"></div>
+	<div class="g-signin2" data-onsuccess="onSignIn"></div>
 		<div class="data">
 			<div class="panel panel-default">
 			<div class="panel-heading">
@@ -30,13 +66,102 @@
 				</ul>
 				<button onclick="signOut()" class="btn btn-primary" > Sign Out </button>
 		  </div>	
+		  <!-- Chat -->
+		<div id="userFormArea" class="row"> 
+			<div class="col-md-12">
+				<form id="userForm"> 
+					<div class="form-group">
+						<label> Enter username: </label>
+						<input id="username" class="form-control"/>
+						</br>
+						<input type="submit" class="btn btn-primary" value="Login">
+					</div>
+				</form>
+			</div>
 		</div>
-		<button onclick="openVideo()" class="btn btn-success" > Open Video </button>
-		<button onclick="closeVideo()" class="btn btn-danger" > Close Video </button>
-		<div id="videoBox">
-			<video id="video2" width="400" height="300" autoplay></video>
-		</div>
+		<div id="messageArea" class="row">
+			<div class="col-md-4">
+				<div class="well">
+					<h3> Online users: </h3>
+					<ul class="list-group" id="users"></ul>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="chat" id="chat"> </div>
+				<form id="messageForm"> 
+					<div class="form-group">
+						<label> Enter message: </label>
+						<textarea id="message" class="form-control"> </textarea>
+						</br>
+						<input type="submit" class="btn btn-primary" id="lol"  value="Send Message">
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
+
+	<script>
+				//Google login
+		function onSignIn(googleUser){
+			var profile = googleUser.getBasicProfile();
+			$(".g-signin2").css("display","none");
+			$(".data").css("display", "block");
+			$("#pic").attr('src', profile.getImageUrl());
+			$("#name").text(profile.getName());
+			$("#email").text(profile.getEmail());
+		}
+
+		function signOut(){
+			var auth2 = gapi.auth2.getAuthInstance();
+			auth2.signOut().then(function(){
+				alert("You have been successfully signed out.")
+				$(".g-signin2").css("display","block");
+				$(".data").css("display", "none");
+			});
+		}
+
+
+		$( document ).ready(function() {
+		   var socket = io.connect();
+		   var $messageForm = $('#messageForm');
+		   var $message = $('#message');
+		   var $chat = $('#chat');
+		   var $userFormArea = $('#userFormArea');
+		   var $userForm = $('#userForm');
+		   var $messageArea = $('#messageArea');
+		   var $users = $('#users');
+		   var $username = $('#username');
+
+		   $messageForm.submit(function(e){
+		    	e.preventDefault();
+		    	socket.emit('send message', $message.val());
+		    	$message.val('');
+		   });
+
+		   socket.on('new message', function(data){
+		    	$chat.append('<div class="well"> <strong> ' + data.user +': </strong>' +data.msg+ '</div>');
+		   });
+
+		   $userForm.submit(function(e){
+		    	e.preventDefault();
+		    	socket.emit('new user', $username.val(), function(data){
+		    		if(data){
+		    			$userFormArea.hide();
+		    			$messageArea.show();
+		    		}
+		    	});
+		    	$username.val('');
+		   });
+
+		   socket.on('get users', function(data){
+		   	var html = '';
+		   	for(i=0; i < data.length; i++){
+		   		html += '<li class="list-group-item">' + data[i] + '</li>';
+		   	}
+		   	$users.html(html);
+		   });
+
+		});
+	</script>
 </body>
 </html>
